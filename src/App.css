@@ -28,6 +28,15 @@
   color: #61dafb;
 }
 
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    padding-left: 10px;
+    display: inline;
+    width: 20%;
+    height: 50px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
