@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+
 function App() {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  function onChange(dates) {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DatePicker selected={startDate} onChange={onChange} monthsShown={6} startDate={startDate} endDate={endDate} selectsRange/>
   );
 }
 
