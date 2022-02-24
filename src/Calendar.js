@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Day from './Day.js'
 import './Calendar.css'
-import { DOM_KEY_LOCATION } from '@testing-library/user-event/dist/keyboard/types';
 function Calendar(props) {
     const daysOfWeek =  {
         0: 'Sunday',
@@ -49,22 +48,26 @@ function Calendar(props) {
         </div>
     );
     function renderMonth(month) {
-        let day = new Date(month.getFullYear(), month.getMonth(), 1);
-        let days = [[]];
-        if(day.getDay() !== 0) {
-            for(let i = 0; i < day.getDay(); i++) {
-                days[0].push(<li key={i - day.getDay()}></li>);
-            } 
-        }
-        let week = 0;
-        while (day.getMonth() === month.getMonth()) {
-            if(day.getDay() === 0 && day.getDate() > 1) {
-                week += 1;
-                days.push([]);
+        
+        let days = [];
+        let months = new Date(month);
+        for(let j = 0; j < props.numMonths; j++) {
+            days.push([]);
+            let day = new Date(months.getFullYear(), months.getMonth(), 1);
+            days[j].push(header);
+            if(day.getDay() !== 0) {
+                for(let i = 0; i < day.getDay(); i++) {
+                    days[j].push(<li key={i - day.getDay()}></li>);
+                } 
             }
-            days[week].push(<li key={day.getDate()}><Day selectDateCallback={props.selectDateCallback} date={new Date(day)} activeDates={props.activeDates} hoverEndDate={props.hoverEndDate} onMouseHoverCallback={props.onMouseHoverCallback}/></li>);
-            day.setDate(day.getDate() + 1);
-          }
+            while (day.getMonth() === months.getMonth()) {
+                days[j].push(<li key={day.getDate()}><Day selectDateCallback={props.selectDateCallback} date={new Date(day)} activeDates={props.activeDates} hoverEndDate={props.hoverEndDate} onMouseHoverCallback={props.onMouseHoverCallback}/></li>);
+                day.setDate(day.getDate() + 1);
+            }
+            months.setMonth(months.getMonth() + 1);
+            //console.log(months);
+        }
+        //console.log(days);
         return days;
     };
     useEffect(() => {
@@ -72,7 +75,6 @@ function Calendar(props) {
     });
     return (
         <div>
-            {header}
             <ul className="days">{renderMonth(startDate)}</ul>
         </div>
       

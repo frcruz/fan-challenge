@@ -8,19 +8,21 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   const startDate = new Date();
-  const [selectedStart, setSelectedStart] = useState(startDate);
+  const [selectedStart, setSelectedStart] = useState('');
   const [endDate, setEndDate] = useState('');
   const [activeDates, setActiveDates] = useState([startDate, endDate]);
   const [hoverEndDate, setHoverEndDate] = useState(startDate);
 
   const selectDateCallback = (date) => {
-    if(date < selectedStart) {
+    if(date < selectedStart || selectedStart === '') {
       setSelectedStart(date);
     }
     else {
       setEndDate(date);
     }
     setActiveDates([selectedStart, endDate]);
+    console.log(selectedStart);
+    console.log(endDate);
   }
   
   const onMouseHoverCallback = (date) => {
@@ -32,12 +34,7 @@ function App() {
   return (
     <div>
       {selectedStart.toString()} - {endDate.toString()}
-      <Calendar selectDateCallback={selectDateCallback} startDate={startDate} activeDates={[startDate, endDate]} hoverEndDate={hoverEndDate} onMouseHoverCallback={onMouseHoverCallback}/>
-      <Calendar selectDateCallback={selectDateCallback} startDate={new Date(startDate.getFullYear(), startDate.getMonth() + 1)} activeDates={activeDates} hoverEndDate={hoverEndDate} onMouseHoverCallback={onMouseHoverCallback}/>
-      <Calendar selectDateCallback={selectDateCallback} startDate={new Date(startDate.getFullYear(), startDate.getMonth() + 2)} activeDates={activeDates} hoverEndDate={hoverEndDate} onMouseHoverCallback={onMouseHoverCallback}/>
-      <Calendar selectDateCallback={selectDateCallback} startDate={new Date(startDate.getFullYear(), startDate.getMonth() + 3)} activeDates={activeDates} hoverEndDate={hoverEndDate} onMouseHoverCallback={onMouseHoverCallback}/>
-      <Calendar selectDateCallback={selectDateCallback} startDate={new Date(startDate.getFullYear(), startDate.getMonth() + 4)} activeDates={activeDates} hoverEndDate={hoverEndDate} onMouseHoverCallback={onMouseHoverCallback}/>
-      <Calendar selectDateCallback={selectDateCallback} startDate={new Date(startDate.getFullYear(), startDate.getMonth() + 5)} activeDates={activeDates} hoverEndDate={hoverEndDate} onMouseHoverCallback={onMouseHoverCallback}/>
+      <Calendar selectDateCallback={selectDateCallback} startDate={startDate} activeDates={[startDate, endDate]} numMonths={6} hoverEndDate={hoverEndDate} onMouseHoverCallback={onMouseHoverCallback}/>
     </div>
   );
 }

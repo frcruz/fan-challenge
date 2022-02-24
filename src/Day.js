@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef} from 'react';
 import "./Day.css"
 function Day(props) {
-    const [classes, setClasses] = useState(['day']);
+    const classes = ['day'];
     var active = useRef(false);
     function onClick() {
-        let temp = classes;
-        temp.push('active');
-        setClasses(temp);
+        active.current = true;
         props.selectDateCallback(props.date);
     }
 
@@ -22,8 +20,6 @@ function Day(props) {
     useEffect(() => {
         let [start, end] = props.activeDates;
         if(props.date >= start && props.date <= end) {
-            console.log(props.hoverEndDate)
-            console.log(props.date);
             active.current = true;
         }
         else {
