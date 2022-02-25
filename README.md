@@ -6,7 +6,7 @@ npm start
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-Also built with react-datepicker (https://reactdatepicker.com/)
+No longer using react-datepicker! 
 ## Available Scripts
 
 In the project directory, you can run:
